@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../views/head %>
+
+<body>
+
+<% include ../views/nav %>
+
+<div class="container topmargin">
+  <div class="container-top">
+    <h4>Add image</h4>
+  </div>
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6 addform margin-right">
+
+
+      <form method="post" enctype="multipart/form-data">
+        <div class="form-group row">
+          <label for="category" class="col-sm-2 col-form-label col-form-label-sm">Category</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" id="category" placeholder="category" name="category">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label col-form-label-sm">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" id="title" placeholder="title" name="title">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="desc" class="col-sm-2 col-form-label col-form-label-sm">Description</label>
+          <div class="col-sm-10">
+            <textarea class="form-control form-control-sm" id="desc" rows="3" placeholder="details" name="details"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="file" class="col-sm-2 col-form-label col-form-label-sm">Image</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control form-control-sm" id="image" name="image">
+          </div>
+          <input id="lat" name="lat" type="hidden" value="60">
+          <input id="lng" name="lng" type="hidden" value="25">
+
+        </div>
+
+            <button type="submit" class="btn btn-secondary btn-sm float-right">Submit</button>
+      </form>
+    </div>
+
+
+
+    <div class="col-xs-6">
+      <h6>Click to select location<h6>
+      <div id="map" class="mapstyle-addpage"></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<% include ../views/scripts %>
+<script src="/javascripts/map.js"></script>
+<script src="/javascripts/add.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #efefef; }
+
+.topmargin {
+  margin-top: 1em; }
+
+.addform {
+  float: left;
+  width: 500px; }
+
+.btn-card {
+  display: inline-block; }
+
+.container-top {
+  background-color: #eaeaea;
+  height: 50px;
+  margin-bottom: 10px; }
+  .container-top h4 {
+    padding-left: 15px;
+    vertical-align: middle;
+    line-height: 50px; }
+
+.modal {
+  width: auto;
+  text-align: center; }
+
+.modal-body {
+  position: relative;
+  overflow-y: auto; }
+
+.btn-group {
+  float: right; }
+
+.card-buttons {
+  position: absolute;
+  right: 0;
+  visibility: hidden; }
+
+.modal-body img {
+  position: relative;
+  width: 100%;
+  padding: 0px;
+  margin: 0px; }
+
+.modal-body p {
+  margin-top: 10px;
+  text-align: left;
+  padding: 0px; }
+
+.modal-dialog {
+  width: auto;
+  margin: 30px auto;
+  display: inline-block; }
+
+.card-body {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 0; }
+
+.card-text {
+  float: left; }
+
+.card-date {
+  font-size: 10px;
+  float: right; }
+
+.loading {
+  position: absolute;
+  z-index: 2;
+  width: 20%; }
+
+.mapstyle {
+  z-index: 1;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 200px;
+  height: 100px; }
+
+.addpage {
+  padding: 50px; }
+
+.mapstyle-addpage {
+  position: relative;
+  width: 250px;
+  height: 250px; }
+
+.margin-right {
+  margin-right: 50px; }
+
+#map {
+  background-color: grey; }
+
+/*# sourceMappingURL=style.css.map */
