@@ -20,9 +20,9 @@ const fetchPics = (url, cb) => {
   });
 }
 
-const urlParams = ( prop )=> {
+const urlParams = (prop)=> {
     let params = {};
-    let search = decodeURIComponent(window.location.href.slice(window.location.href.indexOf( '?' ) + 1 ));
+    let search = decodeURIComponent(window.location.href.slice(window.location.href.indexOf('?')+1));
     let definitions = search.split('&');
 
     definitions.forEach( function(val, key) {

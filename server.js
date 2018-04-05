@@ -23,11 +23,17 @@ const options = {
 };
 
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
 
 let indexRouter = require('./routes/index');
 let addRouter = require("./routes/add");
 let picsRouter = require("./routes/pics");
 let searchRouter = require("./routes/search");
+let usersRouter = require("./routes/users");
+
+
 let bodyParser = require("body-parser")
 
 let app = express();
@@ -52,6 +58,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
+
+
+
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -66,6 +75,7 @@ app.use('/', indexRouter);
 app.use('/add', addRouter);
 app.use('/pics', picsRouter);
 app.use('/search', searchRouter);
+app.use('/users', usersRouter);
 
 
 app.use((req, res, next) => {

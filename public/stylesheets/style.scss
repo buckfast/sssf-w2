@@ -11,6 +11,26 @@ body {
   width: 500px;
 }
 
+.userform {
+  width: 300px;
+
+  .userforminput {
+    width: 200px;
+  }
+}
+
+
+.navsearch {
+
+  width: 400px;
+}
+.navsearchinput {
+  float:left;
+}
+.navserachsubmit {
+  float:right;
+}
+
 .btn-card {
     display: inline-block;
 }
@@ -41,13 +61,12 @@ body {
 
 }
 
-nav ul li:last-child { float: right; margin-top: 5px;}
+nav ul li:nth-last-child(2) { float: right; margin-top: 5px;}
 
 
 .nav-search {
 padding: 0;
 margin:0;
-
 }
 
 .btn-toolbar {

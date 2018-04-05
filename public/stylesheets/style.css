@@ -10,6 +10,20 @@ body {
   float: left;
   width: 500px; }
 
+.userform {
+  width: 300px; }
+  .userform .userforminput {
+    width: 200px; }
+
+.navsearch {
+  width: 400px; }
+
+.navsearchinput {
+  float: left; }
+
+.navserachsubmit {
+  float: right; }
+
 .btn-card {
   display: inline-block; }
 
@@ -33,7 +47,7 @@ body {
 .btn-group {
   float: right; }
 
-nav ul li:last-child {
+nav ul li:nth-last-child(2) {
   float: right;
   margin-top: 5px; }
 
