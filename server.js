@@ -9,12 +9,26 @@ let sassMiddleware = require('node-sass-middleware');
 
 let dotenv = require('dotenv').config()
 
+const https = require('https');
+const http = require('http');
+
+const fs = require('fs');
+
+const sslkey = fs.readFileSync('ssl-key.pem');
+const sslcert = fs.readFileSync('ssl-cert.pem')
+
+const options = {
+      key: sslkey,
+      cert: sslcert
+};
+
+
+
 let indexRouter = require('./routes/index');
 let addRouter = require("./routes/add");
 let picsRouter = require("./routes/pics");
-
-
-
+let searchRouter = require("./routes/search");
+let bodyParser = require("body-parser")
 
 let app = express();
 
@@ -33,6 +47,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -41,9 +60,13 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 app.use('/', indexRouter);
 app.use('/add', addRouter);
 app.use('/pics', picsRouter);
+app.use('/search', searchRouter);
+
 
 app.use((req, res, next) => {
   next(createError(404));
@@ -57,5 +80,11 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-//module.exports = app;
-app.listen(3000, () => console.log('server started'));
+
+https.createServer(options, app).listen(3000);
+
+
+http.createServer((req, res) => {
+      res.writeHead(301, { 'Location': 'https://localhost:3000' + req.url });
+      res.end();
+}).listen(8080);

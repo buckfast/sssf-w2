@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 exports.upload = multer({storage: storage});
 
 exports.index = (req,res) => {
-  res.render('add', { title: 'express-assignment', currentPage: "add" });
+  res.render('add', { title: 'add image', currentPage: "add" });
 }
 
 exports.image_upload_post = (req, res) => {

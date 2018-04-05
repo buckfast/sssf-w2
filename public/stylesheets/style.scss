@@ -38,7 +38,33 @@ body {
 }
 .btn-group {
     float: right;
+
 }
+
+nav ul li:last-child { float: right; margin-top: 5px;}
+
+
+.nav-search {
+padding: 0;
+margin:0;
+
+}
+
+.btn-toolbar {
+  display: block;
+
+  float:right;
+  .btn {
+   margin-left:0.5rem;
+  }
+
+  p {
+        visibility: visible;
+        float: left;
+  }
+}
+
+
 .card-buttons {
   position: absolute;
   right:0;
@@ -86,10 +112,13 @@ body {
    width: 200px;
    height: 100px;
 }
+#categorydropdown {
+  visibility: hidden;
+}
 .addpage {
   padding: 50px;
 }
-.mapstyle-addpage {
+.formside {
   position:relative;
   width: 250px;
   height: 250px;

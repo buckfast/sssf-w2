@@ -4,17 +4,34 @@ const categories = ["All"];
 const dropdown = document.getElementById("categories");
 const id = document.getElementById("images");
 
-fetch("/pics")
-  .then(response => {
-    return response.json();
-  })
-  .then(resJSON => {
-    initMap();
-    showCards(resJSON, "All");
-    showDropdown(categories);
-}).catch((err) => {
-    console.log(err);
-});
+const fetchPics = (url, cb) => {
+  fetch(url)
+    .then(response => {
+      return response.json();
+    })
+    .then(resJSON => {
+      console.log(resJSON);
+      initMap();
+      showCards(resJSON, "All");
+      showDropdown(categories);
+      cb(resJSON.picArray.length);
+  }).catch((err) => {
+      console.log(err);
+  });
+}
+
+const urlParams = ( prop )=> {
+    let params = {};
+    let search = decodeURIComponent(window.location.href.slice(window.location.href.indexOf( '?' ) + 1 ));
+    let definitions = search.split('&');
+
+    definitions.forEach( function(val, key) {
+        let parts = val.split('=', 2);
+        params[parts[0]] = parts[1];
+    });
+    return (prop && prop in params) ? params[prop] : params;
+}
+
 
 
 let showCards = (resJSON, category) => {
@@ -64,10 +81,10 @@ let showCards = (resJSON, category) => {
 
       let cardbutton = document.createElement("a"); cardbutton.role = "button"; cardbutton.className = "btn btn-secondary btn-sm rounded-0"; cardbutton.href="#";
       cardbutton.innerHTML = "View";
-      let cardbuttonUpdate = document.createElement("a"); cardbuttonUpdate.role = "button"; cardbuttonUpdate.className = "btn btn-secondary btn-sm rounded-0"; cardbuttonUpdate.href="#";
-      cardbuttonUpdate.innerHTML = "Update";
-      let cardbuttonDelete = document.createElement("a"); cardbuttonDelete.role = "button"; cardbuttonDelete.className = "btn btn-secondary btn-sm rounded-0"; cardbuttonDelete.href="#";
-      cardbuttonDelete.innerHTML = "Delete";
+      let cardbuttonUpdate = document.createElement("a"); cardbuttonUpdate.role = "button"; cardbuttonUpdate.className = "btn btn-secondary btn-sm rounded-0"; cardbuttonUpdate.href="/pics/"+item._id+"/update";
+      cardbuttonUpdate.innerHTML = "Modify";
+      // let cardbuttonDelete = document.createElement("a"); cardbuttonDelete.role = "button"; cardbuttonDelete.className = "btn btn-secondary btn-sm rounded-0"; cardbuttonDelete.href="/pics/"+item._id+"/delete";
+      // cardbuttonDelete.innerHTML = "Delete";
 
       const img = document.createElement('img');
       img.className = "card-img-top rounded-0";
@@ -86,13 +103,18 @@ let showCards = (resJSON, category) => {
         showModal(item.title, "/images/"+item.filename, item.description, item.coordinates);
       });
 
+      cardbuttonUpdate.addEventListener("click", (evt) => {
+
+      });
+
       cardbody.appendChild(cardtext);
       cardbody.appendChild(carddate);
       card.appendChild(img);
       card.appendChild(cardbody);
 
 
-      row.appendChild(cardbutton); row.appendChild(cardbuttonUpdate); row.appendChild(cardbuttonDelete);
+      row.appendChild(cardbutton); row.appendChild(cardbuttonUpdate);
+       // row.appendChild(cardbuttonDelete);
       card.appendChild(row);
 
       node2.appendChild(card);

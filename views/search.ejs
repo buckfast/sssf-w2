@@ -7,7 +7,41 @@
 <% include ../views/nav %>
 
 <div class="container topmargin">
-  <div class="btn-group">
+  <div class="container-top">
+    <h4>Search</h4>
+  </div>
+
+  <% if (locals.picArray) { %>
+    <%= locals.picArray.length %>
+  <% } %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 addform margin-right">
+
+
+    <form method="get">
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <input type="text" class="form-control form-control-sm" id="search" placeholder="search query" name="q">
+        </div>
+        <button type="submit" class="btn btn-secondary btn-sm float-right">Search</button>
+
+      </div>
+
+    </form>
+  </div>
+
+  </div>
+  </div>
+
+
+</div>
+
+
+<div class="container topmargin">
+
+  <div class="btn-group" id="categorydropdown">
     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Category
     </button>
@@ -16,7 +50,6 @@
   </div>
 
   <% include ../views/modal %>
-
 
 <div class="row" id="images"></div>
 </div>
@@ -29,8 +62,7 @@
 <% include ../views/scripts %>
 
 <script src="/javascripts/script.js"></script>
-<script src="/javascripts/index.js"></script>
-
+<script src="/javascripts/search.js"></script>
 
 </body>
 </html>
