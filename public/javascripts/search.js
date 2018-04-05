@@ -1,8 +1,9 @@
 document.getElementById("categorydropdown").visibility = "hidden";
 
-let query = urlParams("q");
-    if (query != undefined) {
-      fetchPics("/pics?q="+query, (amount) => {
+let query = urlParams();
+console.log(query.q);
+    if (query.q != undefined) {
+      fetchPics("/pics?q="+query.q, (amount) => {
         if (amount > 0) {
           document.getElementById("categorydropdown").style.visibility = "visible";
         } else {
