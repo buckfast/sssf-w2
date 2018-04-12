@@ -1,6 +1,5 @@
 const deleteButton = document.querySelector("#delete");
 
-// const data = {hehe: 'joulupukki'};
 let count = 0;
 deleteButton.addEventListener('click',  (evt) => {
 
@@ -8,6 +7,7 @@ deleteButton.addEventListener('click',  (evt) => {
     const url = "/pics/"+evt.target.getAttribute("data-id")+"/delete";
     fetch(url, {
       method: 'DELETE',
+      credentials: 'include',
     }).then(res => {
       console.log(res);
       window.location.href = "/";

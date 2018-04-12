@@ -8,9 +8,11 @@ let logger = require('morgan');
 let sassMiddleware = require('node-sass-middleware');
 
 let dotenv = require('dotenv').config()
+const helmet = require('helmet');
 
 const https = require('https');
 const http = require('http');
+
 
 const fs = require('fs');
 
@@ -25,6 +27,7 @@ const options = {
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const session = require("express-session");
 
 
 let indexRouter = require('./routes/index');
@@ -37,6 +40,8 @@ let usersRouter = require("./routes/users");
 let bodyParser = require("body-parser")
 
 let app = express();
+
+app.use(helmet());
 
 let mongoose = require('mongoose');
 //var mongoDB = 'mongodb://127.0.0.1/assignment';
@@ -58,13 +63,46 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
+// Session
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: "suppersready"
+  })
+);
 
+//passport config
+let User = require('./models/user');
+app.use(passport.initialize());
+app.use(passport.session());
 
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((userId, done) => {
+  User.findById(userId, (err, user) => done(err, user));
+});
+
+// Passport Local
+const local = new LocalStrategy((username, password, done) => {
+  User.findOne({ username })
+    .then(user => {
+      if (!user || !user.validPassword(password)) {
+        done(null, false, { message: "Invalid username/password" });
+      } else {
+        done(null, user);
+      }
+    })
+    .catch(e => done(e));
+});
+passport.use("local", local);
 
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: false, // true = .sass and false = .scss
+  indentedSyntax: false,
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -93,8 +131,7 @@ app.use((err, req, res, next) => {
 
 https.createServer(options, app).listen(3000);
 
-
-http.createServer((req, res) => {
-      res.writeHead(301, { 'Location': 'https://localhost:3000' + req.url });
-      res.end();
-}).listen(8080);
+http.createServer( (req, res) => {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(80);

@@ -1,3 +1,4 @@
+
 <nav>
   <ul class="nav nav-tabs">
    <li class="nav-item">
@@ -32,8 +33,13 @@
 </li>
 
 <li class="nav-item">
-  <a class="nav-link rounded-0 <% if (currentPage=="users") { %>active<%}%>" href="/users">Log in</a>
+<%if (user == undefined) { %>
+  <a class="nav-link rounded-0 <% if (currentPage=="users") { %>active<%}%>" href="/users/login">Log in</a>
+<%} else { %>
+  <a class="nav-link rounded-0 <% if (currentPage=="users") { %>active<%}%>" href="/users/logout">Log out</a>
+<%}%>
 </li>
+
  </ul>
 
 

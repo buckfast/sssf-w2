@@ -1,27 +1,25 @@
 const Image = require("../models/image");
 
 
-exports.search_get = (req,res,next) => {
-
-}
-
 
 exports.index_get = (req, res, next) => {
 
   if(req.query.q != undefined) {
     var query = {}
-  query = {$or:[{title:{$regex: req.query.q, $options: 'i'}},{description:{$regex: req.query.q, $options: 'i'}}]}
+    query = {$or:[{title:{$regex: req.query.q, $options: 'i'}},{description:{$regex: req.query.q, $options: 'i'}}]}
 
     Image.find(query, (err, data) => {
      if(err) {next(err);}
-     //res.send({picArray: data });
      res.send({picArray: data });
-
     });
   } else {
-
-    Image.find({}, (err, pics) => {
-      res.send({picArray: pics });
+    Image.find({}).
+    populate({
+      path: "user",
+      select: "username",
+    }).
+    exec((err, pics) => {
+      res.send({picArray: pics});
     });
   }
 
@@ -32,7 +30,7 @@ exports.index_get = (req, res, next) => {
 exports.update_get = (req, res, next) => {
   Image.findById(req.params.id, (err, image) => {
     if (err) return next(err);
-    res.render('update', { title: 'update', currentPage: "update", data: image});
+    res.render('update', { title: 'update', currentPage: "update", data: image, user: req.user});
   });
 }
 

@@ -35,9 +35,9 @@ const urlParams = (prop)=> {
 
 
 let showCards = (resJSON, category) => {
-  let showModal = (title, src, details, coordinates) => {
+  let showModal = (title, src, details, coordinates, user) => {
     let modal = $("#detailmodal");
-    modal.find(".modal-title").text(title);
+    modal.find(".modal-title").text(title+" by "+user.username);
     modal.find(".modal-body").find("p").text(details);
     modal.modal();
 
@@ -96,11 +96,11 @@ let showCards = (resJSON, category) => {
 
 
       img.addEventListener('click', (evt) => {
-        showModal(item.title, "/images/"+item.filename, item.description, item.coordinates);
+        showModal(item.title, "/images/"+item.filename, item.description, item.coordinates, item.user);
       });
 
       cardbutton.addEventListener("click", (evt) => {
-        showModal(item.title, "/images/"+item.filename, item.description, item.coordinates);
+        showModal(item.title, "/images/"+item.filename, item.description, item.coordinates, item.user);
       });
 
       cardbuttonUpdate.addEventListener("click", (evt) => {

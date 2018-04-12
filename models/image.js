@@ -17,14 +17,9 @@ const ImageSchema = new Schema(
         lng: {Type: Number},
       }
     },
+    user: {type: Schema.Types.ObjectId, ref: 'User' },
   }
 );
-/*
-ImageSchema
-.virtual('url')
-.get(function () {
-  return '/catalog/author/' + filename;
-});
-*/
+
 
 module.exports = mongoose.model('Image', ImageSchema);

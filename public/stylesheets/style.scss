@@ -63,6 +63,24 @@ body {
 
 nav ul li:nth-last-child(2) { float: right; margin-top: 5px;}
 
+.nav-users {
+  padding: 0px;
+  height: 25px;
+  margin: 0px;
+  border-bottom-color: transparent;
+}
+.nav-users-link {
+  vertical-align: middle;
+  padding-top:0px;
+  padding-bottom: 0px;
+  padding-left: 5px;
+border-bottom-color: transparent;
+  padding-right: 5px;
+
+  margin: 0;
+  margin-bottom: 10px;
+  height: 25px;
+}
 
 .nav-search {
 padding: 0;

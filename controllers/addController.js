@@ -2,7 +2,7 @@ const multer = require('multer');
 const Image = require("../models/image");
 const path = require('path');
 const sharp = require('sharp');
-const ExifImage = require('exif').ExifImage;
+const User = require("../models/user");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 exports.upload = multer({storage: storage});
 
 exports.index = (req,res) => {
-  res.render('add', { title: 'add image', currentPage: "add" });
+  res.render('add', { title: 'add image', currentPage: "add", user: req.user});
 }
 
 exports.image_upload_post = (req, res) => {
@@ -25,16 +25,9 @@ exports.image_upload_post = (req, res) => {
   sharp('public/images/'+req.file.filename)
     .resize(320, 260)
     .toFile('public/images/thumb'+req.file.filename, (err) => {
-/*
-      try {
-          new ExifImage({ image : 'public/images/'+req.file.filename }, (error, exifData) => {
-              if (error) console.log('Error: '+error.message);
-              else console.log(exifData);
-          });
-      } catch (error) {console.log('Error: ' + error.message);}
-*/
-    console.log(req.body.lat+", "+req.body.lng);
-      var image = new Image(
+      if (err) {return next(err);}
+
+      let image = new Image(
         {
         title: req.body.title,
         category: req.body.category,
@@ -44,6 +37,7 @@ exports.image_upload_post = (req, res) => {
         originalname: req.file.originalname,
         date: new Date().toLocaleString(),
         coordinates: {"lat": req.body.lat, "lng": req.body.lng},
+        user: req.user._id,
         }
       );
 
